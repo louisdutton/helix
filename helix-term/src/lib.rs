@@ -12,9 +12,6 @@ pub mod job;
 pub mod keymap;
 pub mod ui;
 
-#[cfg(not(windows))]
-use std::env::var_os;
-
 use std::path::Path;
 
 use futures_util::Future;
@@ -22,29 +19,6 @@ mod handlers;
 
 use ignore::DirEntry;
 use url::Url;
-
-#[cfg(windows)]
-fn true_color() -> bool {
-    true
-}
-
-#[cfg(not(windows))]
-fn true_color() -> bool {
-    if var_os("COLORTERM").is_some_and(|v| v == "truecolor" || v == "24bit")
-        || var_os("WSL_DISTRO_NAME").is_some()
-    {
-        return true;
-    }
-
-    match termini::TermInfo::from_env() {
-        Ok(t) => {
-            t.extended_cap("RGB").is_some()
-                || t.extended_cap("Tc").is_some()
-                || (t.extended_cap("setrgbf").is_some() && t.extended_cap("setrgbb").is_some())
-        }
-        Err(_) => false,
-    }
-}
 
 /// Function used for filtering dir entries in the various file pickers.
 fn filter_picker_entry(entry: &DirEntry, root: &Path, dedup_symlinks: bool) -> bool {

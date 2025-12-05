@@ -12,7 +12,6 @@ use helix_view::{
     document::{DocumentOpenError, DocumentSavedEventResult},
     editor::{ConfigEvent, EditorEvent},
     graphics::Rect,
-    theme,
     tree::Layout,
     Align, Editor,
 };
@@ -77,8 +76,6 @@ pub struct Application {
     signals: Signals,
     jobs: Jobs,
     lsp_progress: LspProgressMap,
-
-    theme_mode: Option<theme::Mode>,
 }
 
 #[cfg(feature = "integration")]
@@ -110,10 +107,6 @@ impl Application {
 
         use helix_view::editor::Action;
 
-        let mut theme_parent_dirs = vec![helix_loader::config_dir()];
-        theme_parent_dirs.extend(helix_loader::runtime_dirs().iter().cloned());
-        let theme_loader = theme::Loader::new(&theme_parent_dirs);
-
         #[cfg(all(not(windows), not(feature = "integration")))]
         let backend = TerminaBackend::new((&config.editor).into())
             .context("failed to create terminal backend")?;
@@ -123,7 +116,6 @@ impl Application {
         #[cfg(feature = "integration")]
         let backend = TestBackend::new(120, 150);
 
-        let theme_mode = backend.get_theme_mode();
         let terminal = Terminal::new(backend)?;
         let area = terminal.size();
         let mut compositor = Compositor::new(area);
@@ -131,18 +123,11 @@ impl Application {
         let handlers = handlers::setup(config.clone());
         let mut editor = Editor::new(
             area,
-            Arc::new(theme_loader),
             Arc::new(ArcSwap::from_pointee(lang_loader)),
             Arc::new(Map::new(Arc::clone(&config), |config: &Config| {
                 &config.editor
             })),
             handlers,
-        );
-        Self::load_configured_theme(
-            &mut editor,
-            &config.load(),
-            terminal.backend().supports_true_color(),
-            theme_mode,
         );
 
         let keys = Box::new(Map::new(Arc::clone(&config), |config: &Config| {
@@ -264,7 +249,6 @@ impl Application {
             signals,
             jobs,
             lsp_progress: LspProgressMap::new(),
-            theme_mode,
         };
 
         Ok(app)
@@ -414,17 +398,9 @@ impl Application {
             let default_config = Config::load_default()
                 .map_err(|err| anyhow::anyhow!("Failed to load config: {}", err))?;
 
-            // Update the syntax language loader before setting the theme. Setting the theme will
-            // call `Loader::set_scopes` which must be done before the documents are re-parsed for
-            // the sake of locals highlighting.
+            // Update the syntax language loader
             let lang_loader = helix_core::config::user_lang_loader()?;
             self.editor.syn_loader.store(Arc::new(lang_loader));
-            Self::load_configured_theme(
-                &mut self.editor,
-                &default_config,
-                self.terminal.backend().supports_true_color(),
-                self.theme_mode,
-            );
 
             // Re-parse any open documents with the new language config.
             let lang_loader = self.editor.syn_loader.load();
@@ -456,42 +432,6 @@ impl Application {
         }
     }
 
-    /// Load the theme set in configuration
-    fn load_configured_theme(
-        editor: &mut Editor,
-        config: &Config,
-        terminal_true_color: bool,
-        mode: Option<theme::Mode>,
-    ) {
-        let true_color = terminal_true_color || config.editor.true_color || crate::true_color();
-        let theme = config
-            .theme
-            .as_ref()
-            .and_then(|theme_config| {
-                let theme = theme_config.choose(mode);
-                editor
-                    .theme_loader
-                    .load(theme)
-                    .map_err(|e| {
-                        log::warn!("failed to load theme `{}` - {}", theme, e);
-                        e
-                    })
-                    .ok()
-                    .filter(|theme| {
-                        let colors_ok = true_color || theme.is_16_color();
-                        if !colors_ok {
-                            log::warn!(
-                                "loaded theme `{}` but cannot use it because true color \
-                                support is not enabled",
-                                theme.name()
-                            );
-                        }
-                        colors_ok
-                    })
-            })
-            .unwrap_or_else(|| editor.theme_loader.default_theme(true_color));
-        editor.set_theme(theme);
-    }
 
     #[cfg(windows)]
     // no signal handling available on windows
@@ -716,13 +656,8 @@ impl Application {
                 ..
             }) => false,
             #[cfg(not(windows))]
-            termina::Event::Csi(csi::Csi::Mode(csi::Mode::ReportTheme(mode))) => {
-                Self::load_configured_theme(
-                    &mut self.editor,
-                    &self.config.load(),
-                    self.terminal.backend().supports_true_color(),
-                    Some(mode.into()),
-                );
+            termina::Event::Csi(csi::Csi::Mode(csi::Mode::ReportTheme(_mode))) => {
+                // Theme is hardcoded, no need to reload
                 true
             }
             #[cfg(windows)]

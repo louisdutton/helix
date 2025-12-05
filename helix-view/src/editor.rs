@@ -1202,12 +1202,7 @@ pub struct Editor {
     pub breakpoints: HashMap<PathBuf, Vec<Breakpoint>>,
 
     pub syn_loader: Arc<ArcSwap<syntax::Loader>>,
-    pub theme_loader: Arc<theme::Loader>,
-    /// last_theme is used for theme previews. We store the current theme here,
-    /// and if previewing is cancelled, we can return to it.
-    pub last_theme: Option<Theme>,
-    /// The currently applied editor theme. While previewing a theme, the previewed theme
-    /// is set here.
+    /// The editor theme (hardcoded to base16_transparent)
     pub theme: Theme,
 
     /// The primary Selection prior to starting a goto_line_number preview. This is
@@ -1267,10 +1262,6 @@ pub enum ConfigEvent {
     Update(Box<Config>),
 }
 
-enum ThemeAction {
-    Set,
-    Preview,
-}
 
 #[derive(Debug, Clone)]
 pub enum CompleteAction {
@@ -1315,7 +1306,6 @@ pub enum CloseError {
 impl Editor {
     pub fn new(
         mut area: Rect,
-        theme_loader: Arc<theme::Loader>,
         syn_loader: Arc<ArcSwap<syntax::Loader>>,
         config: Arc<dyn DynAccess<Config>>,
         handlers: Handlers,
@@ -1326,6 +1316,10 @@ impl Editor {
 
         // HAXX: offset the render area height by 1 to account for prompt/commandline
         area.height -= 1;
+
+        // Initialize syntax scopes from theme
+        let scopes = theme::THEME.scopes();
+        (*syn_loader).load().set_scopes(scopes.to_vec());
 
         Self {
             mode: Mode::Normal,
@@ -1339,15 +1333,13 @@ impl Editor {
             selected_register: None,
             macro_recording: None,
             macro_replaying: Vec::new(),
-            theme: theme_loader.default(),
+            theme: theme::THEME.clone(),
             language_servers,
             diagnostics: Diagnostics::new(),
             diff_providers: DiffProviderRegistry::default(),
             debug_adapters: dap::registry::Registry::new(),
             breakpoints: HashMap::new(),
             syn_loader,
-            theme_loader,
-            last_theme: None,
             last_selection: None,
             registers: Registers::new(Box::new(arc_swap::access::Map::new(
                 Arc::clone(&config),
@@ -1470,44 +1462,17 @@ impl Editor {
             .unwrap_or(false)
     }
 
+    // Theme methods removed - theme is now hardcoded to base16_transparent
     pub fn unset_theme_preview(&mut self) {
-        if let Some(last_theme) = self.last_theme.take() {
-            self.set_theme(last_theme);
-        }
-        // None likely occurs when the user types ":theme" and then exits before previewing
+        // No-op: theme cannot be changed
     }
 
-    pub fn set_theme_preview(&mut self, theme: Theme) {
-        self.set_theme_impl(theme, ThemeAction::Preview);
+    pub fn set_theme_preview(&mut self, _theme: Theme) {
+        // No-op: theme cannot be changed
     }
 
-    pub fn set_theme(&mut self, theme: Theme) {
-        self.set_theme_impl(theme, ThemeAction::Set);
-    }
-
-    fn set_theme_impl(&mut self, theme: Theme, preview: ThemeAction) {
-        // `ui.selection` is the only scope required to be able to render a theme.
-        if theme.find_highlight_exact("ui.selection").is_none() {
-            self.set_error("Invalid theme: `ui.selection` required");
-            return;
-        }
-
-        let scopes = theme.scopes();
-        (*self.syn_loader).load().set_scopes(scopes.to_vec());
-
-        match preview {
-            ThemeAction::Preview => {
-                let last_theme = std::mem::replace(&mut self.theme, theme);
-                // only insert on first preview: this will be the last theme the user has saved
-                self.last_theme.get_or_insert(last_theme);
-            }
-            ThemeAction::Set => {
-                self.last_theme = None;
-                self.theme = theme;
-            }
-        }
-
-        self._refresh();
+    pub fn set_theme(&mut self, _theme: Theme) {
+        // No-op: theme cannot be changed
     }
 
     #[inline]

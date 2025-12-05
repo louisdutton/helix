@@ -1021,46 +1021,6 @@ fn force_cquit(cx: &mut compositor::Context, args: Args, event: PromptEvent) -> 
     quit_all_impl(cx, true)
 }
 
-fn theme(cx: &mut compositor::Context, args: Args, event: PromptEvent) -> anyhow::Result<()> {
-    let true_color = cx.editor.config.load().true_color || crate::true_color();
-    match event {
-        PromptEvent::Abort => {
-            cx.editor.unset_theme_preview();
-        }
-        PromptEvent::Update => {
-            if args.is_empty() {
-                // Ensures that a preview theme gets cleaned up if the user backspaces until the prompt is empty.
-                cx.editor.unset_theme_preview();
-            } else if let Some(theme_name) = args.first() {
-                if let Ok(theme) = cx.editor.theme_loader.load(theme_name) {
-                    if !(true_color || theme.is_16_color()) {
-                        bail!("Unsupported theme: theme requires true color support");
-                    }
-                    cx.editor.set_theme_preview(theme);
-                };
-            };
-        }
-        PromptEvent::Validate => {
-            if let Some(theme_name) = args.first() {
-                let theme = cx
-                    .editor
-                    .theme_loader
-                    .load(theme_name)
-                    .map_err(|err| anyhow::anyhow!("Could not load theme: {}", err))?;
-                if !(true_color || theme.is_16_color()) {
-                    bail!("Unsupported theme: theme requires true color support");
-                }
-                cx.editor.set_theme(theme);
-            } else {
-                let name = cx.editor.theme.name().to_string();
-
-                cx.editor.set_status(name);
-            }
-        }
-    };
-
-    Ok(())
-}
 
 fn yank_main_selection_to_clipboard(
     cx: &mut compositor::Context,
@@ -3131,17 +3091,6 @@ pub const TYPABLE_COMMAND_LIST: &[TypableCommand] = &[
         doc: "Force quit with exit code (default 1) ignoring unsaved changes. Accepts an optional integer exit code (:cq! 2).",
         fun: force_cquit,
         completer: CommandCompleter::none(),
-        signature: Signature {
-            positionals: (0, Some(1)),
-            ..Signature::DEFAULT
-        },
-    },
-    TypableCommand {
-        name: "theme",
-        aliases: &[],
-        doc: "Change the editor theme (show current theme if no name specified).",
-        fun: theme,
-        completer: CommandCompleter::positional(&[completers::theme]),
         signature: Signature {
             positionals: (0, Some(1)),
             ..Signature::DEFAULT

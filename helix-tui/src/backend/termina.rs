@@ -3,7 +3,7 @@ use std::io::{self, Write as _};
 use helix_view::{
     editor::KittyKeyboardProtocolConfig,
     graphics::{CursorKind, Rect, UnderlineStyle},
-    theme::{self, Color, Modifier},
+    theme::{Color, Modifier},
 };
 use termina::{
     escape::{
@@ -52,7 +52,6 @@ struct Capabilities {
     synchronized_output: bool,
     true_color: bool,
     extended_underlines: bool,
-    theme_mode: Option<theme::Mode>,
 }
 
 #[derive(Debug, Default, Clone, Copy, PartialEq, Eq)]
@@ -187,8 +186,8 @@ impl TerminaBackend {
                     })) => {
                         capabilities.synchronized_output = true;
                     }
-                    Event::Csi(Csi::Mode(csi::Mode::ReportTheme(mode))) => {
-                        capabilities.theme_mode = Some(mode.into());
+                    Event::Csi(Csi::Mode(csi::Mode::ReportTheme(_mode))) => {
+                        // Theme is hardcoded, ignore mode
                     }
                     Event::Dcs(dcs::Dcs::Response {
                         value: dcs::DcsResponse::GraphicRendition(sgrs),
@@ -326,11 +325,6 @@ impl TerminaBackend {
             }
         }
 
-        if self.capabilities.theme_mode.is_some() {
-            // Enable mode 2031 theme mode notifications:
-            write!(self.terminal, "{}", decset!(Theme))?;
-        }
-
         Ok(())
     }
 
@@ -341,11 +335,6 @@ impl TerminaBackend {
                 "{}",
                 Csi::Keyboard(csi::Keyboard::PopFlags(1))
             )?;
-        }
-
-        if self.capabilities.theme_mode.is_some() {
-            // Mode 2031 theme notifications.
-            write!(self.terminal, "{}", decreset!(Theme))?;
         }
 
         Ok(())
@@ -565,10 +554,6 @@ impl Backend for TerminaBackend {
 
     fn supports_true_color(&self) -> bool {
         self.capabilities.true_color
-    }
-
-    fn get_theme_mode(&self) -> Option<theme::Mode> {
-        self.capabilities.theme_mode
     }
 }
 
