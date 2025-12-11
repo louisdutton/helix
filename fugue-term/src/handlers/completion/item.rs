@@ -1,3 +1,6 @@
+// Copyright (c) 2020 Blaž Hrastnik
+// Licensed under MPL-2.0
+
 use std::mem;
 
 use fugue_core::completion::CompletionProvider;

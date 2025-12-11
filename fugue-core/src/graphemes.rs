@@ -1,3 +1,6 @@
+// Copyright (c) 2020 Blaž Hrastnik
+// Licensed under MPL-2.0
+
 //! Utility functions to traverse the unicode graphemes of a `Rope`'s text contents.
 //!
 //! Based on <https://github.com/cessen/led/blob/c4fa72405f510b7fd16052f90a598c429b3104a6/src/graphemes.rs>

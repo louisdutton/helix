@@ -1,3 +1,6 @@
+// Copyright (c) 2020 Blaž Hrastnik
+// Licensed under MPL-2.0
+
 //! Input event handling, currently backed by termina.
 use anyhow::{anyhow, Error};
 use fugue_core::unicode::{segmentation::UnicodeSegmentation, width::UnicodeWidthStr};

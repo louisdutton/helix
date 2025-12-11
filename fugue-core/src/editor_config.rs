@@ -1,3 +1,6 @@
+// Copyright (c) 2020 Blaž Hrastnik
+// Licensed under MPL-2.0
+
 //! Support for [EditorConfig](https://EditorConfig.org) configuration loading.
 //!
 //! EditorConfig is an editor-agnostic format for specifying configuration in an INI-like, human

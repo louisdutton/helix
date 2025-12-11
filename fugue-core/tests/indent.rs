@@ -1,3 +1,6 @@
+// Copyright (c) 2020 Blaž Hrastnik
+// Licensed under MPL-2.0
+
 use fugue_core::{
     indent::{indent_level_for_line, treesitter_indent_for_pos, IndentStyle},
     syntax::{config::Configuration, Loader},

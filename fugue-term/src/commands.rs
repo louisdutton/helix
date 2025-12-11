@@ -1,3 +1,6 @@
+// Copyright (c) 2020 Blaž Hrastnik
+// Licensed under MPL-2.0
+
 pub(crate) mod dap;
 pub(crate) mod lsp;
 pub(crate) mod syntax;

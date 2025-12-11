@@ -1,3 +1,6 @@
+// Copyright (c) 2020 Blaž Hrastnik
+// Licensed under MPL-2.0
+
 //! LSP diagnostic utility types.
 use std::{fmt, sync::Arc};
 

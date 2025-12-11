@@ -1,3 +1,6 @@
+// Copyright (c) 2020 Blaž Hrastnik
+// Licensed under MPL-2.0
+
 //! A queue of async messages/errors that will be shown in the editor
 
 use std::borrow::Cow;

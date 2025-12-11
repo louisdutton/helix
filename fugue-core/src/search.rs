@@ -1,3 +1,6 @@
+// Copyright (c) 2020 Blaž Hrastnik
+// Licensed under MPL-2.0
+
 use crate::RopeSlice;
 
 // TODO: switch to std::str::Pattern when it is stable.

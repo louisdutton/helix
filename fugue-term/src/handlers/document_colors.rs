@@ -1,3 +1,6 @@
+// Copyright (c) 2020 Blaž Hrastnik
+// Licensed under MPL-2.0
+
 use std::{collections::HashSet, time::Duration};
 
 use fugue_core::{syntax::config::LanguageServerFeature, text_annotations::InlineAnnotation};

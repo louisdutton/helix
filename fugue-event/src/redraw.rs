@@ -1,3 +1,6 @@
+// Copyright (c) 2020 Blaž Hrastnik
+// Licensed under MPL-2.0
+
 //! Signals that control when/if the editor redraws
 
 use std::future::Future;

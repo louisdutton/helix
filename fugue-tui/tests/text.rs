@@ -1,3 +1,6 @@
+// Copyright (c) 2020 Blaž Hrastnik
+// Licensed under MPL-2.0
+
 use fugue_tui::text::{Span, Spans, StyledGrapheme, Text};
 use fugue_view::graphics::{Color, Modifier, Style};
 

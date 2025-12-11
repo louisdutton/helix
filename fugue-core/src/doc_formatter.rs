@@ -1,3 +1,6 @@
+// Copyright (c) 2020 Blaž Hrastnik
+// Licensed under MPL-2.0
+
 //! The `DocumentFormatter` forms the bridge between the raw document text
 //! and onscreen positioning. It yields the text graphemes as an iterator
 //! and traverses (part) of the document text. During that traversal it

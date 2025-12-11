@@ -1,3 +1,6 @@
+// Copyright (c) 2020 Blaž Hrastnik
+// Licensed under MPL-2.0
+
 //! In this module we only define constants for lsp specific error codes.
 //! There are other error codes that are defined in the
 //! [JSON RPC specification](https://www.jsonrpc.org/specification#error_object).

@@ -1,3 +1,6 @@
+// Copyright (c) 2020 Blaž Hrastnik
+// Licensed under MPL-2.0
+
 //! `fugue_vcs` provides types for working with diffs from a Version Control System (VCS).
 //! Currently `git` is the only supported provider for diffs, but this architecture allows
 //! for other providers to be added in the future.

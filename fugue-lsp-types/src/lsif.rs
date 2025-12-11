@@ -1,3 +1,6 @@
+// Copyright (c) 2020 Blaž Hrastnik
+// Licensed under MPL-2.0
+
 //! Types of Language Server Index Format (LSIF). LSIF is a standard format
 //! for language servers or other programming tools to dump their knowledge
 //! about a workspace.

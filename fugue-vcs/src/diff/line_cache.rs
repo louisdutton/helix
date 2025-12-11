@@ -1,3 +1,6 @@
+// Copyright (c) 2020 Blaž Hrastnik
+// Licensed under MPL-2.0
+
 //! This modules encapsulates a tiny bit of unsafe code that
 //! makes diffing significantly faster and more ergonomic to implement.
 //! This code is necessary because diffing requires quick random

@@ -1,3 +1,6 @@
+// Copyright (c) 2020 Blaž Hrastnik
+// Licensed under MPL-2.0
+
 //! `fugue-event` contains systems that allow (often async) communication between
 //! different editor components without strongly coupling them. Specifically
 //! it allows defining synchronous hooks that run when certain editor events

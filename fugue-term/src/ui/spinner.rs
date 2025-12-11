@@ -1,3 +1,6 @@
+// Copyright (c) 2020 Blaž Hrastnik
+// Licensed under MPL-2.0
+
 use std::{collections::HashMap, time::Instant};
 
 use fugue_lsp::LanguageServerId;

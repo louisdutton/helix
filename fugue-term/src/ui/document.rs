@@ -1,3 +1,6 @@
+// Copyright (c) 2020 Blaž Hrastnik
+// Licensed under MPL-2.0
+
 use std::cmp::min;
 
 use fugue_core::doc_formatter::{DocumentFormatter, GraphemeSource, TextFormat};

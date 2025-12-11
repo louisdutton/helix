@@ -1,3 +1,6 @@
+// Copyright (c) 2020 Blaž Hrastnik
+// Licensed under MPL-2.0
+
 use std::collections::HashMap;
 
 use fugue_core::chars::char_is_word;

@@ -1,3 +1,6 @@
+// Copyright (c) 2020 Blaž Hrastnik
+// Licensed under MPL-2.0
+
 use std::collections::btree_map::Entry;
 use std::collections::HashSet;
 use std::fmt::Display;

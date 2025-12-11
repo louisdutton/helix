@@ -1,3 +1,6 @@
+// Copyright (c) 2020 Blaž Hrastnik
+// Licensed under MPL-2.0
+
 //! Test helpers.
 use crate::{Range, Selection};
 use ropey::Rope;

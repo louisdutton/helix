@@ -1,3 +1,6 @@
+// Copyright (c) 2020 Blaž Hrastnik
+// Licensed under MPL-2.0
+
 //! These are macros to make getting very nested fields in the `Editor` struct easier
 //! These are macros instead of functions because functions will have to take `&mut self`
 //! However, rust doesn't know that you only want a partial borrow instead of borrowing the

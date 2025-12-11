@@ -1,3 +1,6 @@
+// Copyright (c) 2020 Blaž Hrastnik
+// Licensed under MPL-2.0
+
 use std::mem::swap;
 use std::ops::Index;
 use std::sync::Arc;

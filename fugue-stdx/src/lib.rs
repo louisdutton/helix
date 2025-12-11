@@ -1,3 +1,6 @@
+// Copyright (c) 2020 Blaž Hrastnik
+// Licensed under MPL-2.0
+
 //! Extensions to the standard library. A collection of helper functions
 //! used throughout fugue.
 

@@ -1,3 +1,6 @@
+// Copyright (c) 2020 Blaž Hrastnik
+// Licensed under MPL-2.0
+
 use fugue_core::{auto_pairs::DEFAULT_PAIRS, hashmap};
 
 use super::*;

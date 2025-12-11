@@ -1,3 +1,6 @@
+// Copyright (c) 2020 Blaž Hrastnik
+// Licensed under MPL-2.0
+
 use crate::{Client, Payload, Result, StackFrame};
 use fugue_core::syntax::config::DebugAdapterConfig;
 use futures_executor::block_on;

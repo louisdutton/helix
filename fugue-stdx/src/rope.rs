@@ -1,3 +1,6 @@
+// Copyright (c) 2020 Blaž Hrastnik
+// Licensed under MPL-2.0
+
 //! Functions and types for working with [RopeSlice]
 use std::fmt;
 use std::ops::{Bound, RangeBounds};

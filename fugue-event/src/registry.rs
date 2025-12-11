@@ -1,3 +1,6 @@
+// Copyright (c) 2020 Blaž Hrastnik
+// Licensed under MPL-2.0
+
 //! A global registry where events are registered and can be
 //! subscribed to by registering hooks. The registry identifies event
 //! types using their type name so multiple event with the same type name

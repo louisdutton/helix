@@ -1,3 +1,6 @@
+// Copyright (c) 2020 Blaž Hrastnik
+// Licensed under MPL-2.0
+
 pub use encoding_rs as encoding;
 
 pub mod auto_pairs;

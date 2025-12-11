@@ -1,3 +1,6 @@
+// Copyright (c) 2020 Blaž Hrastnik
+// Licensed under MPL-2.0
+
 //! Indexing of words from open buffers.
 //!
 //! This provides an eventually consistent set of words used in any open buffers. This set is

@@ -1,3 +1,6 @@
+// Copyright (c) 2020 Blaž Hrastnik
+// Licensed under MPL-2.0
+
 use fugue_core::indent::IndentStyle;
 use fugue_core::{coords_at_pos, encoding, unicode::width::UnicodeWidthStr, Position};
 use fugue_lsp::lsp::DiagnosticSeverity;

@@ -1,3 +1,6 @@
+// Copyright (c) 2020 Blaž Hrastnik
+// Licensed under MPL-2.0
+
 //! The event system makes use of global to decouple different systems.
 //! However, this can cause problems for the integration test system because
 //! it runs multiple fugue applications in parallel. Making the globals

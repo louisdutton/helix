@@ -1,3 +1,6 @@
+// Copyright (c) 2020 Blaž Hrastnik
+// Licensed under MPL-2.0
+
 use std::borrow::Cow;
 
 use fugue_core::command_line::{ExpansionKind, Token, TokenKind, Tokenizer};

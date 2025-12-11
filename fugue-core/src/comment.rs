@@ -1,3 +1,6 @@
+// Copyright (c) 2020 Blaž Hrastnik
+// Licensed under MPL-2.0
+
 //! This module contains the functionality toggle comments on lines over the selection
 //! using the comment character defined in the user's `languages.toml`
 

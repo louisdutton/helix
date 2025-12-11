@@ -1,3 +1,6 @@
+// Copyright (c) 2020 Blaž Hrastnik
+// Licensed under MPL-2.0
+
 use futures_util::stream::FuturesUnordered;
 use std::collections::HashSet;
 use std::mem;

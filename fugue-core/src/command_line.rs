@@ -1,3 +1,6 @@
+// Copyright (c) 2020 Blaž Hrastnik
+// Licensed under MPL-2.0
+
 //! Types and parsing code for command mode (`:`) input.
 //!
 //! Command line parsing is done in steps:

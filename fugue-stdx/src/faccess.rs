@@ -1,3 +1,6 @@
+// Copyright (c) 2020 Blaž Hrastnik
+// Licensed under MPL-2.0
+
 //! Functions for managine file metadata.
 //! From <https://github.com/Freaky/faccess>
 

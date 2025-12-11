@@ -1,3 +1,6 @@
+// Copyright (c) 2020 Blaž Hrastnik
+// Licensed under MPL-2.0
+
 use std::fmt::Write;
 
 use fugue_core::syntax::config::LanguageServerFeature;

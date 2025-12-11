@@ -1,3 +1,6 @@
+// Copyright (c) 2020 Blaž Hrastnik
+// Licensed under MPL-2.0
+
 use fugue_core::diagnostic::Severity;
 use fugue_core::doc_formatter::{FormattedGrapheme, TextFormat};
 use fugue_core::text_annotations::LineAnnotation;

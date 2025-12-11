@@ -1,3 +1,6 @@
+// Copyright (c) 2020 Blaž Hrastnik
+// Licensed under MPL-2.0
+
 //! `widgets` is a collection of types that implement [`Widget`].
 //!
 //! All widgets are implemented using the builder pattern and are consumable objects. They are not

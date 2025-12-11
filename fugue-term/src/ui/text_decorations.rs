@@ -1,3 +1,6 @@
+// Copyright (c) 2020 Blaž Hrastnik
+// Licensed under MPL-2.0
+
 use std::cmp::Ordering;
 
 use fugue_core::doc_formatter::FormattedGrapheme;

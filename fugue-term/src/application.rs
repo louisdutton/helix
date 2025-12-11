@@ -1,3 +1,6 @@
+// Copyright (c) 2020 Blaž Hrastnik
+// Licensed under MPL-2.0
+
 use arc_swap::{access::Map, ArcSwap};
 use fugue_core::{diagnostic::Severity, pos_at_coords, syntax, Range, Selection};
 use fugue_lsp::{

@@ -1,3 +1,6 @@
+// Copyright (c) 2020 Blaž Hrastnik
+// Licensed under MPL-2.0
+
 use fugue_event::status::StatusMessage;
 use fugue_event::{runtime_local, send_blocking};
 use fugue_view::Editor;

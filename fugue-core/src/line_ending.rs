@@ -1,3 +1,6 @@
+// Copyright (c) 2020 Blaž Hrastnik
+// Licensed under MPL-2.0
+
 use crate::{Rope, RopeSlice};
 
 pub const NATIVE_LINE_ENDING: LineEnding = LineEnding::LF;

@@ -1,3 +1,6 @@
+// Copyright (c) 2020 Blaž Hrastnik
+// Licensed under MPL-2.0
+
 use crate::text::StyledGrapheme;
 use fugue_core::line_ending::str_is_line_ending;
 use fugue_core::unicode::width::UnicodeWidthStr;

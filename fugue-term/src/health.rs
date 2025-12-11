@@ -1,3 +1,6 @@
+// Copyright (c) 2020 Blaž Hrastnik
+// Licensed under MPL-2.0
+
 use crate::config::{Config, ConfigLoadError};
 use fugue_core::config::{default_lang_config, user_lang_config};
 use fugue_loader::grammar::load_runtime_file;

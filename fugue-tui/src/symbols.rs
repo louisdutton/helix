@@ -1,3 +1,6 @@
+// Copyright (c) 2020 Blaž Hrastnik
+// Licensed under MPL-2.0
+
 //! Common TUI symbols including blocks, bars, braille, lines
 
 pub mod block {

@@ -1,3 +1,6 @@
+// Copyright (c) 2020 Blaž Hrastnik
+// Licensed under MPL-2.0
+
 use std::borrow::Borrow;
 use std::future::Future;
 use std::sync::atomic::AtomicU64;

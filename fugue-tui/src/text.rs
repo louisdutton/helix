@@ -1,3 +1,6 @@
+// Copyright (c) 2020 Blaž Hrastnik
+// Licensed under MPL-2.0
+
 //! Primitives for styled text.
 //!
 //! A terminal UI is at its root a lot of strings. In order to make it accessible and stylish,

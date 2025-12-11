@@ -1,3 +1,6 @@
+// Copyright (c) 2020 Blaž Hrastnik
+// Licensed under MPL-2.0
+
 //! rust dynamic dispatch is extremely limited so we have to build our
 //! own vtable implementation. Otherwise implementing the event system would not be possible.
 //! A nice bonus of this approach is that we can optimize the vtable a bit more. Normally

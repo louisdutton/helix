@@ -1,3 +1,6 @@
+// Copyright (c) 2020 Blaž Hrastnik
+// Licensed under MPL-2.0
+
 use anyhow::{Context, Error, Result};
 use fugue_loader::VERSION_AND_GIT_HASH;
 use fugue_term::application::Application;

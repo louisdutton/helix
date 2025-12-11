@@ -1,3 +1,6 @@
+// Copyright (c) 2020 Blaž Hrastnik
+// Licensed under MPL-2.0
+
 use fugue_core::{ChangeSet, Rope};
 use fugue_event::events;
 use fugue_lsp::LanguageServerId;

@@ -1,3 +1,6 @@
+// Copyright (c) 2020 Blaž Hrastnik
+// Licensed under MPL-2.0
+
 /*!
 A parser for LSP/VSCode style snippet syntax
 See <https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#snippet_syntax>.

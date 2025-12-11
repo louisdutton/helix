@@ -1,3 +1,6 @@
+// Copyright (c) 2020 Blaž Hrastnik
+// Licensed under MPL-2.0
+
 use crate::keymap;
 use crate::keymap::{merge_keys, KeyTrie};
 use fugue_loader::merge_toml_values;

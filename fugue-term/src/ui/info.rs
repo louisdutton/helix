@@ -1,3 +1,6 @@
+// Copyright (c) 2020 Blaž Hrastnik
+// Licensed under MPL-2.0
+
 use crate::compositor::{Component, Context};
 use fugue_view::graphics::{Margin, Rect};
 use fugue_view::info::Info;

@@ -1,3 +1,6 @@
+// Copyright (c) 2020 Blaž Hrastnik
+// Licensed under MPL-2.0
+
 use chrono::{Duration, NaiveDate, NaiveDateTime, NaiveTime};
 use once_cell::sync::Lazy;
 use regex::Regex;

@@ -1,3 +1,6 @@
+// Copyright (c) 2020 Blaž Hrastnik
+// Licensed under MPL-2.0
+
 pub mod backend;
 pub mod buffer;
 pub mod layout;

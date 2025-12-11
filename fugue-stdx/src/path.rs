@@ -1,3 +1,6 @@
+// Copyright (c) 2020 Blaž Hrastnik
+// Licensed under MPL-2.0
+
 //! Functions for working with [Path].
 
 pub use etcetera::home_dir;

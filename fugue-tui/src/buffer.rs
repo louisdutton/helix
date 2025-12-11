@@ -1,3 +1,6 @@
+// Copyright (c) 2020 Blaž Hrastnik
+// Licensed under MPL-2.0
+
 //! Contents of a terminal screen. A [Buffer] is made up of [Cell]s.
 use crate::text::{Span, Spans};
 use fugue_core::unicode::width::UnicodeWidthStr;
