@@ -20,7 +20,11 @@
     pkgsFor = eachSystem (system:
       import nixpkgs {
         localSystem.system = system;
-        overlays = [(import rust-overlay) self.overlays.fugue];
+        overlays = [
+          (import rust-overlay)
+          self.overlays.fugue
+          self.overlays.tree-sitter
+        ];
       });
     gitRev = self.rev or self.dirtyRev or null;
   in {
@@ -61,22 +65,7 @@
         default = let
           commonRustFlagsEnv = "-C link-arg=-fuse-ld=lld -C target-cpu=native --cfg tokio_unstable";
           platformRustFlagsEnv = lib.optionalString pkgs.stdenv.isLinux "-Clink-arg=-Wl,--no-rosegment";
-
-          grammars = pkgs.runCommand "tree-sitter-grammars" {} ''
-            mkdir -p $out/grammars
-
-            # rust
-            mkdir -p $out/queries/rust
-            ln -s ${pkgs.tree-sitter-grammars.tree-sitter-rust}/parser $out/grammars/rust.so
-            ln -s ${pkgs.tree-sitter-grammars.tree-sitter-rust}/queries/* $out/queries/rust/
-
-            # nix
-            mkdir -p $out/queries/nix
-            ln -s ${pkgs.tree-sitter-grammars.tree-sitter-nix}/parser $out/grammars/nix.so
-            ln -s ${pkgs.tree-sitter-grammars.tree-sitter-nix}/queries/* $out/queries/nix/
-
-            # add more here if necessary
-          '';
+          grammars = with pkgs.tree-sitter; mkGrammars allGrammars;
         in
           pkgs.mkShell {
             inputsFrom = [self.checks.${system}.fugue];
@@ -90,8 +79,6 @@
               ++ (lib.optional stdenv.isLinux lldb);
 
             packages = with pkgs; [
-              tree-sitter-grammars.tree-sitter-rust
-              tree-sitter-grammars.tree-sitter-nix
               alejandra
               nixd
             ];
@@ -109,6 +96,34 @@
     overlays = {
       fugue = final: prev: {
         fugue = final.callPackage ./default.nix {inherit gitRev;};
+      };
+
+      tree-sitter = final: prev: {
+        tree-sitter =
+          prev.tree-sitter
+          // {
+            mkGrammars = grammarPackages: let
+              mkGrammarInstall = drv: let
+                name = with lib.strings;
+                  drv.name
+                  |> getName
+                  |> removePrefix "tree-sitter-"
+                  |> removeSuffix "-grammar"
+                  |> replaceStrings ["-"] ["_"];
+              in ''
+                mkdir $out/queries/${name}
+                ln -s ${drv}/parser $out/grammars/${name}.so
+                ln -s ${drv}/queries/* $out/queries/${name}/
+              '';
+
+              grammarInstalls = builtins.concatStringsSep "\n" (map mkGrammarInstall grammarPackages);
+            in
+              final.runCommand "tree-sitter-grammars" {} ''
+                mkdir -p $out/grammars
+                mkdir -p $out/queries
+                ${grammarInstalls}
+              '';
+          };
       };
 
       default = self.overlays.fugue;
