@@ -1,19 +1,14 @@
 {
   lib,
   rustPlatform,
-  callPackage,
-  runCommand,
   installShellFiles,
   git,
   gitRev ? null,
-  grammarOverlays ? [],
-  includeGrammarIf ? _: true,
 }: let
   fs = lib.fileset;
 
   src = fs.difference (fs.gitTracked ./.) (fs.unions [
     ./.envrc
-    ./rustfmt.toml
     ./docs
     ./flake.lock
     (fs.fileFilter (file: lib.strings.hasInfix ".git" file.name) ./.)
