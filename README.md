@@ -2,13 +2,16 @@
 
 A simple and performant code editor for unix-based systems.
 
-## Core features
+## Features
 
-- tree-sitter
-- LSP
-- DAP
+- [x] tree-sitter
+- [x] lsp
+- [x] dap
+- [ ] full vi compat
+- [ ] process/suspend resume
+- [ ] multiplexer integration
 
 ## License
 
-- Original Fugue code ([MPL](./LICENSE-MPL))
+- Original Helix code ([MPL](./LICENSE-MPL))
 - Everything else ([GPL3](./LICENSE-GPL3))
